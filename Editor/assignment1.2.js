@@ -5,9 +5,9 @@ var { parse } = require('querystring');
 
 http.createServer(function(req,res){
 	var fileStream = fs.createReadStream("./index.html");
-    fileStream.pipe(res); 
 	if(req.method == "POST")
 	{
+	    fileStream.pipe(res); 
 		var body = '';
 		req.on('data', function (chunk){
 			body += chunk.toString();
@@ -18,6 +18,8 @@ http.createServer(function(req,res){
 			fs.appendFile(filename, filedata, function(err){
 				if(err) throw err;
 			});
+		res.write("Your submission has been saved!");
+		res.end();
 		});
 	}
 		else
@@ -25,4 +27,4 @@ http.createServer(function(req,res){
 		fileStream.pipe(res);
 	}
 }).listen(8080);
-console.log('listening on port 80');
+console.log('listening on port 8080');
