@@ -18,12 +18,8 @@ http.createServer(function(req,res){
 			var file_email ='';
 			var file_password='';
 		
-			console.log('this is it: ' +body);
 			email = parse(body).email;
-			console.log('email: ' + email);
-			password = parse(body).password;
-			console.log('password: ' + password);
-					
+			password = parse(body).password;					
 			fs.readFile('password.txt', 'utf8', function (err, data) {
 				if (err) throw err;
 				var filedata = JSON.parse(data);
@@ -31,16 +27,12 @@ http.createServer(function(req,res){
 				file_password=filedata.password;
 				console.log("file email " + file_email);
 				console.log('file password: '+ file_password);
-				console.log("file email " + (email == file_email));
-				console.log('file password: '+ (password == 'password'));
-				console.log('password: '+ (file_password == 'password'));
-				console.log((email=== file_email) && (password === file_password));
 
 			if((email=== file_email) && (password === file_password))
 			{
 			  console.log('It worked!');
-			  res.writeHead(302, {"Location": "./index.html"});				
-			}
+			  res.writeHead(302, {"Location": 'index.html'});	
+			  res.end();			}
 			else
 			{
 			  console.log('Didnt work :/(');
